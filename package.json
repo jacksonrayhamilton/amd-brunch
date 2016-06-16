@@ -4,6 +4,7 @@
   "description": "AMD Brunch",
   "author": "Jackson Ray Hamilton",
   "license": "MIT",
+  "repository": "github:jacksonrayhamilton/amd-brunch",
   "dependencies": {
     "amodro-trace": "^0.2.0",
     "lodash": "^4.13.1"
