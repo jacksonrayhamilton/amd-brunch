@@ -156,6 +156,5 @@ Amd.prototype.compile = function (file) {
 Amd.prototype.brunchPlugin = true;
 Amd.prototype.type = 'javascript';
 Amd.prototype.extension = 'js';
-Amd.prototype.defaultEnv = 'production';
 
 module.exports = Amd;

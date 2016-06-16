@@ -39,7 +39,7 @@ module.exports = {
 };
 ```
 
-This is a production plugin.  I expect that, to capitalize on AMD for iterative
+This is a build plugin.  I expect that, to capitalize on AMD for iterative
 development, one would serve the filesystem `app/` and `node_modules/`
 directories as `/` and `/node_modules/` on his local server, and use a dynamic
 AMD loader to inject `<script>` elements into the page.
