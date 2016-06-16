@@ -68,32 +68,8 @@ Amd.prototype._trace = function () {
     _.merge(loaderConfig, buildConfig);
   }
 
-  function isVendorId (id) {
-    // TODO: Maybe use actual vendor config.
-    return /^node_modules/.test(id) && !(/!/).test(id);
-  }
-
-  function normalizePath (filePath) {
-    // Resolve `node_modules` from the project root, rather than supposedly
-    // from inside the baseUrl.
-    return path.relative(path.join(rootPath, baseUrl), filePath);
-  }
-
-  // Override file handling logic so code may be organized more nicely.
-  function handleFile (defaultHandler, id, filePath) {
-    if (isVendorId(id)) {
-      // Fix paths.
-      return defaultHandler(id, normalizePath(filePath));
-    }
-    return defaultHandler(id, filePath);
-  }
-
   function handleResult (result) {
     if (!_.find(traced, {id: result.id})) {
-      if (isVendorId(result.id)) {
-        // Fix paths.
-        result.path = normalizePath(result.path);
-      }
       // Convert dependencies to file names so Brunch can read them from disk.
       result.deps = _.map(result.deps || [], idToFileName);
       if (result.path === mainConfigFile) {
@@ -113,8 +89,6 @@ Amd.prototype._trace = function () {
       return amodroTrace({
         rootDir: path.join(rootPath, baseUrl),
         id: id,
-        fileExists: handleFile,
-        fileRead: handleFile,
         includeContents: true,
         writeTransform: allWriteTransforms()
       }, loaderConfig).then(function (traceResult) {
@@ -139,6 +113,8 @@ Amd.prototype.include = function () {
   return plugin._trace().then(function (traced) {
     return _.reduce(traced, function (inclusions, result) {
       if (/^node_modules/.test(result.path)) {
+        // Include NPM modules into the build pipeline, since it's not happening
+        // for AMD by default.
         return inclusions.concat(result.path);
       }
       return inclusions;
