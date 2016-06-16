@@ -1,7 +1,7 @@
 {
   "name": "amd-brunch",
   "version": "0.0.0",
-  "description": "AMD Brunch",
+  "description": "Advanced AMD builds for Brunch",
   "author": "Jackson Ray Hamilton",
   "license": "MIT",
   "repository": "github:jacksonrayhamilton/amd-brunch",
